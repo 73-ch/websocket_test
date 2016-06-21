@@ -1,0 +1,22 @@
+
+<script>
+  var dispatcher = new WebSocketRails("localhost:3000/websocket");
+  var form = document.getElementById("form");
+  var mouse_x, mouse_y;
+
+  document.body.addEventListener('mousemove', function(e){
+    mouse_x = e.pageX;
+    mouse_y = e.pageY;
+  }, false);
+
+  getMousePosition();
+
+  function getMousePosition(){
+    dispatcher.trigger("send_message", {x: mouse_x, y: mouse_y});
+    requestAnimationFrame(getMousePosition);
+  }
+
+  dispatcher.bind("send", function(data) {
+    console.log(data.message);
+  });
+</script>
