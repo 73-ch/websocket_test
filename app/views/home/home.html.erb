@@ -2,17 +2,25 @@
 <script>
   var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
   var form = document.getElementById("form");
-  var mouse_x, mouse_y;
+  var rota_r;
 
-  document.body.addEventListener('mousemove', function(e){
-    mouse_x = e.pageX;
-    mouse_y = e.pageY;
-  }, false);
+  var getDevice = (function(){
+    var ua = navigator.userAgent;
+    if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
+      document.body.addEventListener('devicemotion', function(e){
+        rota_r = e.rotationRate;
+      }, false);
+    }else if(ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0){
+      return 'tab';
+    }else{
+      return 'other';
+    }
+  })();
 
   getMousePosition();
 
   function getMousePosition(){
-    dispatcher.trigger("send_message", {x: mouse_x, y: mouse_y});
+    dispatcher.trigger("send_message", {rota_r: rota_r});
     requestAnimationFrame(getMousePosition);
   }
 
