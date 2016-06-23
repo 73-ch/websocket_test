@@ -170,8 +170,9 @@ window.onload = function(){
 
   dispatcher.bind("send", function(data) {
     console.log(data.message);
-    if (date.message){
-      q.rotate(data.message.d_motion, [0.0, 0.0, 1.0], qt);
+    if (data.message.d){
+      qMatrix = m.identity(m.create());
+      q.rotate(data.message.d, [0.0, 0.0, 1.0], qt);
     };
   });
 
