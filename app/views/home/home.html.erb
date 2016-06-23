@@ -22,39 +22,18 @@
 <script>
 var c;
 var d_motion;
+var z = 20.0;
 var q = new qtnIV();
 var qt = q.identity(q.create());
-var z = 20.0;
-// function mouseMove(e){
-//     var cw = c.width;
-//     var ch = c.height;
-//     var wh = 1 / Math.sqrt(cw * cw + ch * ch);
-//     var x = e.clientX - c.offsetLeft - cw * 0.5;
-//     var y = e.clientY - c.offsetTop - ch * 0.5;
-//     var sq = Math.sqrt(x * x + y * y);
-//     var r = sq * 2.0 * Math.PI * wh;
-//     if(sq != 1){
-//         sq = 1 / sq;
-//         x *= sq;
-//         y *= sq;
-//     }
-//     q.rotate(r, [y, x, 0.0], qt);
-// }
+var d_motion;
 window.onload = function(){
   var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
   var getDevice = (function(){
     var ua = navigator.userAgent;
     if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
       window.addEventListener("devicemotion", function(e){
-        d_motion = e.rotationRate;
+        d_motion = Number(e.rotationRate.alpha).toFixed(5) * Math.PI / 180 * 0.0000001;
       });
-    }else if(ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0){
-      return 'tab';
-    }else{
-      // document.body.addEventListener('mousemove', function(e){
-      //   mouse_x = e.pageX;
-      //   mouse_y = e.pageY;
-      // }, false);
     }
   })();
   c = document.getElementById('canvas');
@@ -67,8 +46,6 @@ window.onload = function(){
   gl.clearDepth(1.0);
   gl.enable(gl.BLEND);
   gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE);
-
-  // c.addEventListener('mousemove', mouseMove, true);
 
   var vertexSource = document.getElementById('vs').textContent,
       fragmentSource = document.getElementById('fs').textContent,
@@ -193,9 +170,9 @@ window.onload = function(){
 
   dispatcher.bind("send", function(data) {
     console.log(data.message);
-    q.rotate(Number(data.message.alpha).toFixed(5) * Math.PI / 180, [1.0, 0.0, 0.0], qt);
-    q.rotate(Number(data.message.beta).toFixed(5) * Math.PI / 180, [0.0, 1.0, 0.0], qt);
-    q.rotate(Number(data.message.gamma).toFixed(5) * Math.PI / 180, [0.0, 0.0, 1.0], qt);
+    if (date.message){
+      q.rotate(data.message.d_motion, [0.0, 0.0, 1.0], qt);
+    };
   });
 
   function shaderProgram(vertexSource, fragmentSource){
