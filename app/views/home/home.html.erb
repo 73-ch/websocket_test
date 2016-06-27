@@ -32,7 +32,7 @@ window.onload = function(){
     var ua = navigator.userAgent;
     if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
       window.addEventListener("devicemotion", function(e){
-        d_motion = Number(e.rotationRate.alpha).toFixed(5) * Math.PI / 180 * 0.0000001;
+        d_motion = Number(e.acceleration.x).toFixed(5) * 0.016 * 0.016;
       });
     }
   })();
@@ -171,8 +171,7 @@ window.onload = function(){
   dispatcher.bind("send", function(data) {
     console.log(data.message);
     if (data.message.d){
-      qMatrix = m.identity(m.create());
-      q.rotate(data.message.d, [0.0, 0.0, 1.0], qt);
+      cameraPosition[2] += data.message.d;
     };
   });
 
