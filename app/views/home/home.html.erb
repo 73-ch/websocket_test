@@ -32,7 +32,7 @@ window.onload = function(){
     var ua = navigator.userAgent;
     if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
       window.addEventListener("devicemotion", function(e){
-        d_motion = Number(e.acceleration.x).toFixed(5) * 0.016 * 0.016;
+        d_motion = e.acceleration.x * 10;
       });
     }
   })();
@@ -169,9 +169,10 @@ window.onload = function(){
   };
 
   dispatcher.bind("send", function(data) {
-    console.log(data.message);
     if (data.message.d){
-      cameraPosition[2] += data.message.d;
+      cameraPosition[1] += data.message.d;
+      console.log(data.message.d);
+      console.log(cameraPosition[2]);
     };
   });
 
