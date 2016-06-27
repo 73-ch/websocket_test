@@ -32,7 +32,7 @@ window.onload = function(){
     var ua = navigator.userAgent;
     if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
       window.addEventListener("devicemotion", function(e){
-        d_motion = e.acceleration.x;
+        d_motion = e.acceleration.x / 10;
       });
     }
   })();
@@ -170,7 +170,14 @@ window.onload = function(){
 
   dispatcher.bind("send", function(data) {
     if (data.message.d){
-      cameraPosition[2] += data.message.d;
+      if (cameraPosition[2] >= 0 && cameraPosition[2] < 40) {
+        cameraPosition[2] += data.message.d;
+        if (cameraPosition[2] < 0){
+          cameraPosition[2] = 0;
+        }else if(cameraPosition[2] >= 40){
+          cameraPosition[2] = 40;
+        };
+      };
       console.log(data.message.d);
       console.log(cameraPosition[2]);
     };
