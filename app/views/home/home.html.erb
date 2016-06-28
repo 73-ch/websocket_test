@@ -138,9 +138,9 @@ window.onload = function(){
     setAttribute(boxVboList, attLocation, attStride, boxIndexBuffer);
 
     m.identity(mMatrix);
-    q.rotate(alpha, [0.0, 0.0, 1.0], qt_a);
-    q.rotate(beta, [0.0, 1.0, 0.0], qt_b);
-    q.rotate(gamma, [1.0, 0.0, 0.0], qt_g);
+    q.rotate(alpha, [1.0, 0.0, 0.0], qt_a);
+    q.rotate(beta, [0.0, 0.0, 1.0], qt_b);
+    q.rotate(gamma, [0.0, 1.0, 0.0], qt_g);
     q.multiply(qt_a, qt_b, qt);
     q.multiply(qt, qt_g, qt);
     q.toMatIV(qt, qMatrix);
@@ -192,7 +192,7 @@ window.onload = function(){
       var inter = data.message.i,
           rotation_rate = data.message.d;
       alpha += data.message.d.alpha * inter * Math.PI / 180 * -1;
-      beta += data.message.d.beta * inter * Math.PI / 180 * -1;
+      beta += data.message.d.beta * inter * Math.PI / 180;
       gamma += data.message.d.gamma * inter * Math.PI / 180 * -1;
       console.log(data.message.aig);
       console.log(data.message.acc);
