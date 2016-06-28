@@ -32,6 +32,7 @@ var alpha = 0,
     beta = 0,
     gamma = 0;
 var d_motion;
+var mobile
 window.onload = function(){
   var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
   var getDevice = (function(){
@@ -41,8 +42,10 @@ window.onload = function(){
         d_motion = e.rotationRate;
         interval = e.interval;
       });
+      device = "mobile";
     }
   })();
+  if (device != "mobile") {
   c = document.getElementById('canvas');
   var gl = c.getContext('webgl');
   if(!gl){
@@ -128,17 +131,14 @@ window.onload = function(){
 
     setAttribute(boxVboList, attLocation, attStride, boxIndexBuffer);
 
-    console.log(alpha);
     m.identity(mMatrix);
     q.rotate(alpha, [0.0, 0.0, 1.0], qt_a);
     q.toMatIV(qt_a, qMatrix);
 
     q.rotate(beta, [0.0, 1.0, 0.0], qt_b);
     q.toMatIV(qt_b, qMatrix);
-    console.log(qt_b);
     q.rotate(gamma, [1.0, 0.0, 0.0], qt_g);
     q.toMatIV(qt_g, qMatrix);
-    
     m.multiply(mMatrix, qMatrix, mMatrix);
     m.multiply(vpMatrix, mMatrix, mvpMatrix);
 
@@ -186,14 +186,15 @@ window.onload = function(){
 
   dispatcher.bind("send", function(data) {
     if (data.message.d){
-      var inter = data.message.i,
-          rotation_rate = data.message.d;
-      alpha += data.message.d.alpha * inter * Math.PI / 180;
-      beta += data.message.d.beta * inter * Math.PI / 180;
-      gamma += data.message.d.gamma * inter * Math.PI / 180;
-      // console.log(qt_a);
+      // var inter = data.message.i,
+      //     rotation_rate = data.message.d;
+      // alpha += data.message.d.alpha * inter * Math.PI / 180;
+      // beta += data.message.d.beta * inter * Math.PI / 180;
+      // gamma += data.message.d.gamma * inter * Math.PI / 180;
+      console.log(data.message.d);
     };
   });
+  };
 
   function shaderProgram(vertexSource, fragmentSource){
     var vertexShader = gl.createShader(gl.VERTEX_SHADER);
