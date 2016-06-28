@@ -28,6 +28,9 @@ var q = new qtnIV();
 var qt_a = q.identity(q.create());
 var qt_b = q.identity(q.create());
 var qt_g = q.identity(q.create());
+var alpha = 0,
+    beta = 0,
+    gamma = 0;
 var d_motion;
 window.onload = function(){
   var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
@@ -121,14 +124,21 @@ window.onload = function(){
     m.perspective(fovy, aspect, near, far, pMatrix);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     m.lookAt(cameraPosition, centerPoint, cameraUp, vMatrix);
-    q.toMatIV(qt_a, qMatrix);
-    q.toMatIV(qt_b, qMatrix);
-    q.toMatIV(qt_g, qMatrix);
     m.multiply(pMatrix, vMatrix, vpMatrix);
 
     setAttribute(boxVboList, attLocation, attStride, boxIndexBuffer);
 
+    console.log(alpha);
     m.identity(mMatrix);
+    q.rotate(alpha, [0.0, 0.0, 1.0], qt_a);
+    q.toMatIV(qt_a, qMatrix);
+
+    q.rotate(beta, [0.0, 1.0, 0.0], qt_b);
+    q.toMatIV(qt_b, qMatrix);
+    console.log(qt_b);
+    q.rotate(gamma, [1.0, 0.0, 0.0], qt_g);
+    q.toMatIV(qt_g, qMatrix);
+    
     m.multiply(mMatrix, qMatrix, mMatrix);
     m.multiply(vpMatrix, mMatrix, mvpMatrix);
 
@@ -175,13 +185,14 @@ window.onload = function(){
   };
 
   dispatcher.bind("send", function(data) {
-    var inter = data.message.i,
-        rotation_rate = data.message.d;
-
-    q.rotate(data.message.d.alpha * inter, [0.0, 0.0, 1.0], qt_a);
-    q.rotate(data.message.d.beta * inter, [0.0, 1.0, 0.0], qt_b);
-    q.rotate(data.message.d.gamma * inter, [1.0, 0.0, 0.0], qt_g);
-    console.log(data.message.d);
+    if (data.message.d){
+      var inter = data.message.i,
+          rotation_rate = data.message.d;
+      alpha += data.message.d.alpha * inter * Math.PI / 180;
+      beta += data.message.d.beta * inter * Math.PI / 180;
+      gamma += data.message.d.gamma * inter * Math.PI / 180;
+      // console.log(qt_a);
+    };
   });
 
   function shaderProgram(vertexSource, fragmentSource){
