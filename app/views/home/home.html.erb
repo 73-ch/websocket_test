@@ -28,11 +28,13 @@ var q = new qtnIV();
 var qt_a = q.identity(q.create());
 var qt_b = q.identity(q.create());
 var qt_g = q.identity(q.create());
+var qt = q.identity(q.create());
 var alpha = 0,
     beta = 0,
     gamma = 0;
 var d_motion;
 var device;
+var aig;
 window.onload = function(){
   var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
   var getDevice = (function(){
@@ -41,7 +43,8 @@ window.onload = function(){
       window.addEventListener("devicemotion", function(e){
         d_motion = e.rotationRate;
         interval = e.interval;
-        dispatcher.trigger("send_message", {d: d_motion, i: interval});
+        aig = e.accelerationIncludingGravity;
+        dispatcher.trigger("send_message", {d: d_motion, i: interval, aig: aig});
       });
       device = "mobile";
     }
@@ -134,12 +137,11 @@ window.onload = function(){
 
     m.identity(mMatrix);
     q.rotate(alpha, [0.0, 0.0, 1.0], qt_a);
-    q.toMatIV(qt_a, qMatrix);
-
     q.rotate(beta, [0.0, 1.0, 0.0], qt_b);
-    q.toMatIV(qt_b, qMatrix);
     q.rotate(gamma, [1.0, 0.0, 0.0], qt_g);
-    q.toMatIV(qt_g, qMatrix);
+    q.multiply(qt_a, qt_b, qt);
+    q.multiply(qt, qt_g, qt);
+    q.toMatIV(qt, qMatrix);
     m.multiply(mMatrix, qMatrix, mMatrix);
     m.multiply(vpMatrix, mMatrix, mvpMatrix);
 
@@ -185,12 +187,12 @@ window.onload = function(){
 
   dispatcher.bind("send", function(data) {
     if (data.message.d){
-      // var inter = data.message.i,
-      //     rotation_rate = data.message.d;
-      // alpha += data.message.d.alpha * inter * Math.PI / 180;
-      // beta += data.message.d.beta * inter * Math.PI / 180;
-      // gamma += data.message.d.gamma * inter * Math.PI / 180;
-      console.log(data.message.d);
+      var inter = data.message.i,
+          rotation_rate = data.message.d;
+      alpha += data.message.d.alpha * inter * Math.PI / 180 * -1;
+      beta += data.message.d.beta * inter * Math.PI / 180 * -1;
+      gamma += data.message.d.gamma * inter * Math.PI / 180 * -1;
+      console.log(data.message.aig);
     };
   });
   };
