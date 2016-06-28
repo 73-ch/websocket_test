@@ -22,9 +22,12 @@
 <script>
 var c;
 var d_motion;
+var interval;
 var z = 20.0;
 var q = new qtnIV();
-var qt = q.identity(q.create());
+var qt_a = q.identity(q.create());
+var qt_b = q.identity(q.create());
+var qt_g = q.identity(q.create());
 var d_motion;
 window.onload = function(){
   var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
@@ -32,7 +35,8 @@ window.onload = function(){
     var ua = navigator.userAgent;
     if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
       window.addEventListener("devicemotion", function(e){
-        d_motion = e.accelerationIncludingGravity;
+        d_motion = e.rotationRate;
+        interval = e.interval;
       });
     }
   })();
@@ -117,8 +121,10 @@ window.onload = function(){
     m.perspective(fovy, aspect, near, far, pMatrix);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     m.lookAt(cameraPosition, centerPoint, cameraUp, vMatrix);
+    q.toMatIV(qt_a, qMatrix);
+    q.toMatIV(qt_b, qMatrix);
+    q.toMatIV(qt_g, qMatrix);
     m.multiply(pMatrix, vMatrix, vpMatrix);
-    q.toMatIV(qt, qMatrix);
 
     setAttribute(boxVboList, attLocation, attStride, boxIndexBuffer);
 
@@ -159,7 +165,7 @@ window.onload = function(){
         gl.drawElements(gl.TRIANGLES, junior_cube.i.length, gl.UNSIGNED_SHORT, 0);
       };
 
-      dispatcher.trigger("send_message", {d: d_motion});
+      dispatcher.trigger("send_message", {d: d_motion, i: interval});
     }
 
     gl.flush();
@@ -169,18 +175,13 @@ window.onload = function(){
   };
 
   dispatcher.bind("send", function(data) {
-    if (data.message.d){
-      if (cameraPosition[2] >= 0 && cameraPosition[2] < 40) {
-        cameraPosition[2] += data.message.d / 100;
-        if (cameraPosition[2] < 0){
-          cameraPosition[2] = 0;
-        }else if(cameraPosition[2] > 40){
-          cameraPosition[2] = 40;
-        };
-      };
-      console.log(data.message.d);
+    var inter = data.message.i,
+        rotation_rate = data.message.d;
 
-    };
+    q.rotate(data.message.d.alpha * inter, [0.0, 0.0, 1.0], qt_a);
+    q.rotate(data.message.d.beta * inter, [0.0, 1.0, 0.0], qt_b);
+    q.rotate(data.message.d.gamma * inter, [1.0, 0.0, 0.0], qt_g);
+    console.log(data.message.d);
   });
 
   function shaderProgram(vertexSource, fragmentSource){
