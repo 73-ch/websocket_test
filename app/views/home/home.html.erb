@@ -41,6 +41,7 @@ window.onload = function(){
       window.addEventListener("devicemotion", function(e){
         d_motion = e.rotationRate;
         interval = e.interval;
+        dispatcher.trigger("send_message", {d: d_motion, i: interval});
       });
       device = "mobile";
     }
@@ -174,8 +175,6 @@ window.onload = function(){
         gl.uniformMatrix4fv(uniLocation.mvpMatrix, false, mvpMatrix);
         gl.drawElements(gl.TRIANGLES, junior_cube.i.length, gl.UNSIGNED_SHORT, 0);
       };
-
-      dispatcher.trigger("send_message", {d: d_motion, i: interval});
     }
 
     gl.flush();
