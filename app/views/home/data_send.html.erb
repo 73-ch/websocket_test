@@ -8,13 +8,13 @@ window.onload = function(){
     var ua = navigator.userAgent;
     if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
     	var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
-      var private_channel = dispatcher.subscribe_private(<%= @channel %>);
+      var channel = dispatcher.subscribe(<%= @channel %>);
       window.addEventListener("devicemotion", function(e){
         d_motion = e.rotationRate;
         interval = e.interval;
         aig = e.accelerationIncludingGravity;
         acc = e.acceleration;
-        private_channel.trigger("send_message", {d: d_motion, i: interval, aig: aig, acc: acc});
+        channel.trigger("send_message", {d: d_motion, i: interval, aig: aig, acc: acc});
       });
       device = "mobile";
     }else{
