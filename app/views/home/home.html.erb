@@ -40,15 +40,10 @@ var acc;
 
 
 window.onload = function(){
-  var device;
   var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
   var channel = dispatcher.subscribe("<%= @channel %>");
-  var getDevice = (function(){
-    var ua = navigator.userAgent;
-    if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
-      device = "mobile";
-    }
-  })();
+  console.log(channel);
+
   c = document.getElementById('canvas');
   var gl = c.getContext('webgl');
   if(!gl){
