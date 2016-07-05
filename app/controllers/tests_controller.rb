@@ -4,7 +4,7 @@ class TestsController < WebsocketRails::BaseController
   end
 
   def send
-  	WebsocketRails[data.chn].trigger(:send, data)
+  	WebsocketRails[message().chn].trigger(:send, data)
   end
 
 end

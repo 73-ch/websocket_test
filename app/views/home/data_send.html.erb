@@ -8,7 +8,6 @@ window.onload = function(){
 	var getDevice = (function(){
     var ua = navigator.userAgent;
     if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
-    	var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
       Document.getElementById("message").innerHTML = channel.name;
       window.addEventListener("devicemotion", function(e){
         d_motion = e.rotationRate;
