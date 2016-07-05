@@ -185,6 +185,7 @@ window.onload = function(){
   };
 
   private_channel.bind("send", function(data) {
+    console.log(data);
     if (data.message.d){
       var inter = data.message.i,
           rotation_rate = data.message.d;

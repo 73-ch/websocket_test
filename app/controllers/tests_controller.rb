@@ -6,6 +6,7 @@ class TestsController < WebsocketRails::BaseController
 
   def send
   	@channel = params[:channel]
+  	logger.info("channel in send method is" + @channel)
   	new_message = {:message => message}
 		broadcast_message :send, new_message
   end
