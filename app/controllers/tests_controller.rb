@@ -1,11 +1,13 @@
 class TestsController < WebsocketRails::BaseController
+	WebsocketRails[:posts].make_private
 	def initialize_session
-    # perform application setup here
     controller_store[:message_count] = 0
   end
 
-  def new
+  def send
+  	@channel = params[:channel]
   	new_message = {:message => message}
 		broadcast_message :send, new_message
   end
+
 end

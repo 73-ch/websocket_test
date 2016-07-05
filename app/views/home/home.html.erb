@@ -17,6 +17,7 @@
 </script>
 </head>
 <body>
+  <p>your smart device open in http://localhost:3000/send/<%= @channel %></p>
   <canvas id="canvas"></canvas>
 </body>
 <script>
@@ -36,22 +37,18 @@ var d_motion;
 var device;
 var aig;
 var acc;
+
+
 window.onload = function(){
+  var device;
   var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
+  var private_channel = dispatcher.subscribe_private(<%= @channel %>);
   var getDevice = (function(){
     var ua = navigator.userAgent;
     if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
-      window.addEventListener("devicemotion", function(e){
-        d_motion = e.rotationRate;
-        interval = e.interval;
-        aig = e.accelerationIncludingGravity;
-        acc = e.acceleration;
-        dispatcher.trigger("send_message", {d: d_motion, i: interval, aig: aig, acc: acc});
-      });
       device = "mobile";
     }
   })();
-  if (device != "mobile") {
   c = document.getElementById('canvas');
   var gl = c.getContext('webgl');
   if(!gl){
@@ -198,7 +195,6 @@ window.onload = function(){
       console.log(data.message.acc);
     };
   });
-  };
 
   function shaderProgram(vertexSource, fragmentSource){
     var vertexShader = gl.createShader(gl.VERTEX_SHADER);
