@@ -1,10 +1,10 @@
 class HomeController < ApplicationController
+	require 'securerandom'
 	def home
-		@channel = (Random.rand * 10000).floor.to_s
+		@channel = SecureRandom.hex(2)
 	end
 
 	def data_send
 		@channel = params[:channel]
-		logger.info("channel is" + @channel)
 	end
 end

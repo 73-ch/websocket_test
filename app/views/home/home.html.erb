@@ -186,12 +186,12 @@ window.onload = function(){
 
   channel.bind("send", function(data) {
     console.log(data);
-    if (data.message.d){
-      var inter = data.message.i,
-          rotation_rate = data.message.d;
-      alpha += data.message.d.alpha * inter * Math.PI / 180 * -1;
-      beta += data.message.d.beta * inter * Math.PI / 180;
-      gamma += data.message.d.gamma * inter * Math.PI / 180 * -1;
+    if (data.d){
+      var inter = data.i,
+          rotation_rate = data.d;
+      alpha += data.d.alpha * inter * Math.PI / 180 * -1;
+      beta += data.d.beta * inter * Math.PI / 180;
+      gamma += data.d.gamma * inter * Math.PI / 180 * -1;
     };
   });
 
