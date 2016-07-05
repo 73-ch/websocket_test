@@ -6,5 +6,6 @@ class HomeController < ApplicationController
 	def data_send
 		@channel = params[:channel]
 		logger.info("channel is" + @channel)
+		WebsocketRails[@channel].trigger(:send, message)
 	end
 end
