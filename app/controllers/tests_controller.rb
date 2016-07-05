@@ -5,6 +5,7 @@ class TestsController < WebsocketRails::BaseController
 
   def send
   	new_message = {:message => message}
+  	logger.warn(new_message.message.chn)
   	WebsocketRails[new_message.message.chn].trigger(:send, new_message)
   end
 
