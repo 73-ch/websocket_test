@@ -184,7 +184,7 @@ window.onload = function(){
     count++;
   };
 
-  dispatcher.bind("send", function(data) {
+  channel.bind("send", function(data) {
     console.log(data);
     if (data.message.d){
       var inter = data.message.i,
