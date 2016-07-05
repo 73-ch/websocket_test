@@ -41,7 +41,7 @@ var acc;
 
 window.onload = function(){
   var device;
-  var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
+  var dispatcher = new WebSocketRails("http://evening-stream-72370.herokuapp.com/websocket");
   var private_channel = dispatcher.subscribe_private(<%= @channel %>);
   var getDevice = (function(){
     var ua = navigator.userAgent;
@@ -184,7 +184,7 @@ window.onload = function(){
     count++;
   };
 
-  private_channel.bind("send", function(data) {
+  dispatcher.bind("send", function(data) {
     console.log(data);
     if (data.message.d){
       var inter = data.message.i,
