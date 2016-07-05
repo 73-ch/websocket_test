@@ -5,7 +5,7 @@ class TestsController < WebsocketRails::BaseController
 
   def send
   	new_message = {:message => message}
-		broadcast_message :send, new_message
+  	WebsocketRails[new_message.message.chn].trigger(:send, new_message)
   end
 
 end
