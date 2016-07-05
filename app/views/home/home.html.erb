@@ -17,7 +17,7 @@
 </script>
 </head>
 <body>
-  <p>your smart device open in http://localhost:3000/send/<%= @channel %></p>
+  <p>your smart device open in http://evening-stream-72370.herokuapp.com/send<%= @channel %></p>
   <canvas id="canvas"></canvas>
 </body>
 <script>
@@ -184,7 +184,7 @@ window.onload = function(){
     count++;
   };
 
-  dispatcher.bind("send", function(data) {
+  private_channel.bind("send", function(data) {
     if (data.message.d){
       var inter = data.message.i,
           rotation_rate = data.message.d;
