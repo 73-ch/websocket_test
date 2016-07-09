@@ -40,7 +40,7 @@ var acc;
 
 
 window.onload = function(){
-  var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
+  var dispatcher = new WebSocketRails("localhost:3000/websocket");
   var channel = dispatcher.subscribe("<%= @channel %>");
   console.log(channel);
 
