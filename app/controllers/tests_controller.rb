@@ -6,7 +6,7 @@ class TestsController < WebsocketRails::BaseController
   def send
   	channel = message[:chn]
   	logger.info(channel)
-  	WebsocketRails[channel].trigger(:send, message)
+  	WebsocketRails["#{channel}"].trigger(:send, message)
   end
 
 end

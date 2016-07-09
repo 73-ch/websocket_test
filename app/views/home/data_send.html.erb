@@ -1,25 +1,25 @@
 <body>
 <%= @channel %>
-<h1 id="message"></h1>
 </body>
 
 <script type="text/javascript">
 window.onload = function(){
+  var channel = "<%= @channel %>";
+  console.log(channel);
 	var getDevice = (function(){
     var ua = navigator.userAgent;
     if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
     	var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
+      console.log(dispatcher);
       window.addEventListener("devicemotion", function(e){
-        d_motion = e.rotationRate;
-        interval = e.interval;
-        aig = e.accelerationIncludingGravity;
-        acc = e.acceleration;
-        dispatcher.trigger("send_message", {chn: "<%= @channel %>", d: d_motion, i: interval, aig: aig, acc: acc}, function(){console.logg('success')}, function(){console.log("failed")});
+        send_message(dispatcher, channel, e.rotationRate, e.interval, e.accelerationIncludingGravity, e.acceleration);
       });
-      device = "mobile";
     }else{
       alert("This devise is not supported")
     }
   })();
+}
+function send_message(dispatcher, chn, d, i, aig, acc){
+  dispatcher.trigger("send_message", {chn: chn, d: d, i: i, aig: aig, acc: acc}, function(){console.logg('success')}, function(){console.log("failed")});
 }
 </script>

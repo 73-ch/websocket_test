@@ -17,7 +17,7 @@
 </script>
 </head>
 <body>
-  <p>your smart device open in http://evening-stream-72370.herokuapp.com/send/<%= @channel %></p>
+  <p>Open in your smart device http://evening-stream-72370.herokuapp.com/send/<%= @channel %></p>
   <canvas id="canvas"></canvas>
 </body>
 <script>
@@ -40,7 +40,7 @@ var acc;
 
 
 window.onload = function(){
-  var dispatcher = new WebSocketRails("localhost:3000/websocket");
+  var dispatcher = new WebSocketRails("evening-stream-72370.herokuapp.com/websocket");
   var channel = dispatcher.subscribe("<%= @channel %>");
   console.log(channel);
 
