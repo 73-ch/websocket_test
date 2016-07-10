@@ -5,8 +5,12 @@ class TestsController < WebsocketRails::BaseController
 
   def send
   	channel = message[:chn]
-  	logger.info(channel)
   	WebsocketRails["#{channel}"].trigger(:send, message)
+  	if message[:awesomeness] > 5
+	    trigger_success {message => 'awesome level is sufficient'}
+	  else
+	    trigger_failure {message => 'awesome level is insufficient'}
+	  end
   end
 
 end
