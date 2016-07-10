@@ -14,7 +14,7 @@ window.onload = function(){
         interval = e.interval;
         aig = e.accelerationIncludingGravity;
         acc = e.acceleration;
-        dispatcher.trigger("send_message", {chn: channel, d: d_motion, i: interval, aig: aig, acc: acc}, function(){console.logg('success')}, function(response){console.log(response.massage)});
+        dispatcher.trigger("send_message", {chn: channel, d: d_motion, i: interval, aig: aig, acc: acc}, function(){console.logg('success')}, function(response){console.log(response)});
       });
       device = "mobile";
     }else{
