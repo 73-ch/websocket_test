@@ -5,7 +5,9 @@ class TestsController < WebsocketRails::BaseController
 
   def send
   	channel = message[:chn]
-	  trigger_success {message}
+  	success = {}
+  	success["message"] = 'awesome level is sufficient'
+	  trigger_success success
   	WebsocketRails["#{channel}"].trigger(:send, message)
   end
 
