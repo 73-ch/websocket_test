@@ -14,7 +14,10 @@ window.onload = function(){
         // aig = e.accelerationIncludingGravity;
         // acc = e.acceleration;
         // dispatcher.trigger("send_message", {chn: channel, d: d_motion, i: interval, aig: aig, acc: acc}, function(){console.logg('success')}, function(response){console.log(response)});
-        dispatcher.trigger("send_message", {d: e}, function(){console.log('success')}, function(response){console.log(response)});
+        a = e.alpha;
+        b = e.beta
+        g = e.gamma;
+        dispatcher.trigger("send_message", {a: a, b: b, g: g}, function(){console.log('success')}, function(response){console.log(response)});
       });
       device = "mobile";
     }else{
