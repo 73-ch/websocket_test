@@ -60,4 +60,11 @@ WebsocketRails.setup do |config|
   # List here the origin domains allowed to perform the request.
   # config.allowed_origins = ['http://localhost:3000']
 
+  config.thin_options = {
+    ssl: true,
+    ssl_key_file: 'path_to_ssl_key_file',
+    ssl_cert_file: 'path_to_ssl_cert_file',
+    ssl_disable_verify: true,
+  }
+
 end
