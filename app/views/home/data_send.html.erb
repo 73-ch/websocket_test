@@ -1,7 +1,9 @@
 <body>
+  <div id="test"></div>
 </body>
 
 <script type="text/javascript">
+var test = document.getElementById("test");
 window.onload = function(){
   var channel = "<%= @channel %>";
 	var getDevice = (function(){
@@ -14,6 +16,7 @@ window.onload = function(){
         // aig = e.accelerationIncludingGravity;
         // acc = e.acceleration;
         // dispatcher.trigger("send_message", {chn: channel, d: d_motion, i: interval, aig: aig, acc: acc}, function(){console.logg('success')}, function(response){console.log(response)});
+        test.innerHTML = e.alpha;
         a = e.alpha;
         b = e.beta
         g = e.gamma;
