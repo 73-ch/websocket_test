@@ -22,10 +22,10 @@ window.onload = function(){
         // acc = e.acceleration;
         // dispatcher.trigger("send_message", {chn: channel, d: d_motion, i: interval, aig: aig, acc: acc}, function(){console.logg('success')}, function(response){console.log(response)});
         test.innerHTML = e.alpha;
-        a = e.alpha;
-        b = e.beta
-        g = e.gamma;
-        dispatcher.trigger("send_message", {a: a, b: b, g: g}, function(){console.log('success')}, function(response){console.log(response)});
+        alpha = e.alpha;
+        beta = e.beta
+        gamma = e.gamma;
+        dispatcher.trigger("send_message", {a: alpha, b: beta, g: gamma}, function(){console.log('success')}, function(response){console.log(response)});
       });
       device = "mobile";
     }else{
