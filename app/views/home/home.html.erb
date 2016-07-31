@@ -192,11 +192,11 @@ window.onload = function(){
       channel.bind("send", function(data) {
         console.log(data);
         if (data.d){
-          // var inter = data.i,
-          //     rotation_rate = data.d;
-          alpha = data.a;
-          beta = data.b;
-          gamma = data.g;
+          var inter = data.i,
+              rotation_rate = data.d;
+          alpha += data.d.alpha * inter * Math.PI / 180 * -1;
+          beta += data.d.beta * inter * Math.PI / 180;
+          gamma += data.d.gamma * inter * Math.PI / 180 * -1;
         };
       });
 
