@@ -193,9 +193,9 @@
         };
 
         channel.bind("send", function (data) {
-          alpha = data.a * Math.PI / 180 * -1;
+          alpha = data.a * Math.PI / 180;
           beta = data.b * Math.PI / 180;
-          gamma = data.g * Math.PI / 180 * -1;
+          gamma = data.g * Math.PI / 180;
         });
 
         function shaderProgram(vertexSource, fragmentSource) {
