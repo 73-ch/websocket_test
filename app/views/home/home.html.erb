@@ -19,7 +19,7 @@
 </script>
 </head>
 <body>
-<p>右のURLをスマートフォンで開いてください http://evening-stream-72370.herokuapp.com/send/<%= @channel %></p>
+<p>右のURLをスマートフォンで開いてください https://evening-stream-72370.herokuapp.com/send/<%= @channel %></p>
 <button onClick="clicked()">ANGLE RESET</button>
 <canvas id="canvas"></canvas>
 </body>
@@ -193,8 +193,8 @@
         };
 
         channel.bind("send", function (data) {
-          alpha = data.a * Math.PI / 180;
-          beta = data.b * Math.PI / 180;
+          alpha = data.a * Math.PI / 180 * -1;
+          beta = data.b * Math.PI / 180 * -1;
           gamma = data.g * Math.PI / 180;
         });
 
