@@ -1,3 +1,3 @@
 WebsocketRails::EventMap.describe do
-  subscribe :send_message, 'tests#new'
+	subscribe :send_message, 'tests#send_message'
 end
