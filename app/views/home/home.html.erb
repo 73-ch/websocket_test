@@ -127,6 +127,7 @@ window.onload = function(){
       render();
 
       function render(){
+        console.log(alpha);
         c.height = window.innerHeight;
         c.width = window.innerWidth;
         gl.viewport(0.0, 0.0, c.width, c.height);
@@ -159,7 +160,7 @@ window.onload = function(){
           if(count % 50 == 0){
             for (var g = 0; g < 3; g++) {
               trans[i][g] = Math.round(trans[i][g]);
-            };
+            }
             ran = Math.random() * 6 - 3;
             num = (ran + ran / Math.abs(ran))>>0;
             if(Math.abs(trans[i][Math.abs(num) - 1] + 2.0 * num / Math.abs(num)) <= 4){
@@ -180,7 +181,7 @@ window.onload = function(){
             m.multiply(vpMatrix, mMatrix, mvpMatrix);
             gl.uniformMatrix4fv(uniLocation.mvpMatrix, false, mvpMatrix);
             gl.drawElements(gl.TRIANGLES, junior_cube.i.length, gl.UNSIGNED_SHORT, 0);
-          };
+          }
         }
 
         gl.flush();
@@ -190,9 +191,6 @@ window.onload = function(){
       };
 
       channel.bind("send", function(data) {
-        console.log(data.a);
-        console.log(data.b);
-        console.log(data.g);
         if (data.d){
           alpha = data.a * Math.PI / 180 * -1;
           beta = data.b * Math.PI / 180;
