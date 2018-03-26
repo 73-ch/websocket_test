@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d768c188-a515-4e3d-bcdd-bb54b9b5c8b1" name="Default" comment="cigarのorientationの変更">
+    <list default="true" id="d768c188-a515-4e3d-bcdd-bb54b9b5c8b1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/home/cigar.html.erb" afterPath="$PROJECT_DIR$/app/views/home/cigar.html.erb" />
     </list>
@@ -100,8 +100,8 @@
           <file leaf-file-name="data_send.html.erb" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/views/home/data_send.html.erb">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="208">
-                  <caret line="16" column="9" lean-forward="true" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
+                <state relative-caret-position="299">
+                  <caret line="23" column="8" lean-forward="false" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
@@ -130,8 +130,8 @@
           <file leaf-file-name="cigar.html.erb" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/views/home/cigar.html.erb">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="293">
-                  <caret line="147" column="44" lean-forward="false" selection-start-line="147" selection-start-column="44" selection-end-line="147" selection-end-column="44" />
+                <state relative-caret-position="1208">
+                  <caret line="223" column="57" lean-forward="false" selection-start-line="223" selection-start-column="57" selection-end-line="223" selection-end-column="57" />
                   <folding />
                 </state>
               </provider>
@@ -315,7 +315,7 @@
       <workItem from="1514218597197" duration="12000" />
       <workItem from="1520397279749" duration="240000" />
       <workItem from="1520475078710" duration="161000" />
-      <workItem from="1522022446608" duration="2300000" />
+      <workItem from="1522022446608" duration="3095000" />
     </task>
     <task id="LOCAL-00001" summary="diviceorientationに対応">
       <created>1478322120165</created>
@@ -387,11 +387,18 @@
       <option name="project" value="LOCAL" />
       <updated>1522025001328</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="cigarのorientationの変更">
+      <created>1522025085631</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1522025085631</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8679000" />
+    <option name="totallyTimeSpent" value="9474000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="0" width="1676" height="1050" extended-state="0" />
@@ -855,16 +862,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/home/data_send.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="16" column="9" lean-forward="true" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
+        <state relative-caret-position="299">
+          <caret line="23" column="8" lean-forward="false" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/home/cigar.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="147" column="44" lean-forward="false" selection-start-line="147" selection-start-column="44" selection-end-line="147" selection-end-column="44" />
+        <state relative-caret-position="1208">
+          <caret line="223" column="57" lean-forward="false" selection-start-line="223" selection-start-column="57" selection-end-line="223" selection-end-column="57" />
           <folding />
         </state>
       </provider>
