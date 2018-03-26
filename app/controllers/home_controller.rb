@@ -7,4 +7,8 @@ class HomeController < ApplicationController
 	def data_send
 		@channel = params[:channel]
 	end
+
+	def cigar
+		@channel = params[:channel]
+	end
 end
