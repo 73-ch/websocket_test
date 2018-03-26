@@ -143,9 +143,9 @@
                 setAttribute(boxVboList, attLocation, attStride, boxIndexBuffer);
 
                 m.identity(mMatrix);
-                q.rotate(alpha, [1.0, 0.0, .0], qt_a);
+                q.rotate(alpha, [1.0, 0.0, 0.0], qt_a);
                 q.rotate(beta, [0.0, 0.0, 1.0], qt_b);
-                q.rotate(gamma, [0.0, 1.0, .0], qt_g);
+                q.rotate(gamma, [0.0, 1.0, 0.0], qt_g);
                 q.multiply(qt_a, qt_b, qt);
                 q.multiply(qt, qt_g, qt);
                 q.toMatIV(qt, qMatrix);
