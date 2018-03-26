@@ -195,7 +195,7 @@
 
             window.addEventListener("deviceorientation", function (e) {
                 alpha = event.alpha * Math.PI / 180 * -1;
-                beta = (event.beta-90) * Math.PI / 180;
+                beta = (event.beta-180) * Math.PI / 180;
                 gamma = event.gamma * Math.PI / 180;
             });
 
