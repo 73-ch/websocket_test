@@ -119,7 +119,7 @@
             var trans = [],
                 ran,
                 vel_num = [],
-                box_num = 80;
+                box_num = 10;
 
             for (var i = 0; i < box_num; i++) {
                 trans[i] = [0, 0, 0];
@@ -195,7 +195,7 @@
 
             window.addEventListener("deviceorientation", function (e) {
                 alpha = event.alpha * Math.PI / 180 * -1;
-                beta = event.beta * Math.PI / 180 * -1;
+                beta = (event.beta-90) * Math.PI / 180 * -1;
                 gamma = event.gamma * Math.PI / 180;
             });
 
