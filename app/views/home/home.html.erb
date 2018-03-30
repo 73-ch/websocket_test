@@ -196,6 +196,7 @@
           alpha = data.a * Math.PI / 180 * -1;
           beta = data.b * Math.PI / 180 * -1;
           gamma = data.g * Math.PI / 180;
+          console.log("devise_orientation", data.a,data.b,data.g);
         });
 
         function shaderProgram(vertexSource, fragmentSource) {
