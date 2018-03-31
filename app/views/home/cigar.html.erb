@@ -42,6 +42,7 @@
     var device;
     var aig;
     var acc;
+    var init_alpha;
 
     function clicked() {
         alpha = 0;
@@ -148,33 +149,36 @@
                 q.rotate(gamma, [0.0, 1.0, .0], qt_g);
                 q.multiply(qt_a, qt_b, qt);
                 q.multiply(qt, qt_g, qt);
+
+                qt = getQuaternion(alpha,beta,gamma);
+
                 q.toMatIV(qt, qMatrix);
 
-                var cz = Math.cos(alpha);
-                var sz = Math.sin(alpha);
-                var cx = Math.cos(beta);
-                var sx = Math.sin(beta);
-                var cy = Math.cos(gamma);
-                var sy = Math.sin(gamma);
-
-                qMatrix =  [
-                    cy * cz - sy * sx * sz,
-                    -cx * sz,
-                    sy * cz + cy * sx * sz,
-                    0.0,
-
-                    cy * sz + sy * sx * cz,
-                    cx * cz,
-                    sy * sz - cy * sx * cz,
-                    0.0,
-
-                    -sy * cx,
-                    sx,
-                    cy * cx,
-                    0.0,
-
-                    1.0,1.0,1.0,1.0
-                ];
+//                var cz = Math.cos(alpha);
+//                var sz = Math.sin(alpha);
+//                var cx = Math.cos(beta);
+//                var sx = Math.sin(beta);
+//                var cy = Math.cos(gamma);
+//                var sy = Math.sin(gamma);
+//
+//                qMatrix =  [
+//                    cy * cz - sy * sx * sz,
+//                    -cx * sz,
+//                    sy * cz + cy * sx * sz,
+//                    0.0,
+//
+//                    cy * sz + sy * sx * cz,
+//                    cx * cz,
+//                    sy * sz - cy * sx * cz,
+//                    0.0,
+//
+//                    -sy * cx,
+//                    sx,
+//                    cy * cx,
+//                    0.0,
+//
+//                    1.0,1.0,1.0,1.0
+//                ];
 
                 m.multiply(mMatrix, qMatrix, mMatrix);
                 m.multiply(vpMatrix, mMatrix, mvpMatrix);
@@ -221,10 +225,43 @@
             };
 
             window.addEventListener("deviceorientation", function (e) {
-                alpha = event.alpha * Math.PI / 180 * -1;
-                beta = (event.beta-90) * Math.PI / 180;
-                gamma = event.gamma * Math.PI / 180;
+//                alpha = event.alpha * Math.PI / 180 * -1;
+//                beta = (event.beta-90) * Math.PI / 180;
+//                gamma = event.gamma * Math.PI / 180;
+
+                alpha = event.alpha;
+                beta = event.beta;
+                gamma = event.gamma;
+
             });
+
+            var degtorad = Math.PI / 180; // Degree-to-Radian conversion
+
+            function getQuaternion( alpha, beta, gamma ) {
+
+                var _x = beta  ? beta  * degtorad : 0; // beta value
+                var _y = gamma ? gamma * degtorad : 0; // gamma value
+                var _z = alpha ? alpha * degtorad : 0; // alpha value
+
+                var cX = Math.cos( _x/2 );
+                var cY = Math.cos( _y/2 );
+                var cZ = Math.cos( _z/2 );
+                var sX = Math.sin( _x/2 );
+                var sY = Math.sin( _y/2 );
+                var sZ = Math.sin( _z/2 );
+
+                //
+                // ZXY quaternion construction.
+                //
+
+                var w = cX * cY * cZ - sX * sY * sZ;
+                var x = sX * cY * cZ - cX * sY * sZ;
+                var y = cX * sY * cZ + sX * cY * sZ;
+                var z = cX * cY * sZ + sX * sY * cZ;
+
+                return [ w, x, y, z ];
+
+            }
 
 
             function shaderProgram(vertexSource, fragmentSource) {
